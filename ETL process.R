@@ -15,6 +15,10 @@ df <- read_xlsx("~/Desktop/SPRING 19/SQL/project/borrower_new.xlsx")
 
 df <- separate_rows(df, credit_rating_agency,establish_year,credit_score,
                     sep = '\\|')
+#separate phone column
+df <- df%>%
+  separate_rows(phone_numbers)
+
 
 #CREAT TABLES
 stmt <- 'CREATE TABLE borrower (
@@ -144,8 +148,26 @@ FOREIGN KEY (borrower_id) REFERENCES borrower
 
 dbGetQuery(con, stmt)
 
+stmt<- 'CREATE TABLE borrower_phone(
+phone_id char(10),
+borrower_id char(10),
+phone_type varchar(10),
+PRIMARY KEY (phone_id, borrower_id),
+FOREIGN KEY (borrower_id) REFERENCES borrower(borrower_id),
+FOREIGN KEY (phone_id) REFERENCES b_phones(phone_id)
+);'
+dbGetQuery(con, stmt)
+
 
 #####import borrower data#####
+
+ 
+##borrower_phone
+df1 <- df %>% select(phone_id, borrower_id) %>% distinct()
+df2 <- bind_cols(df1, 'phone_type' = NULL)
+dbWriteTable(con,name = 'borrower_phone',value = df2, row.names = FALSE,append=TRUE)
+
+
 #borrower
 df1 <- df %>% select(borrower_id,first_name,last_name,state,city,
                      street_address,zip_code) %>% distinct()
@@ -303,6 +325,15 @@ FOREIGN KEY (phone_id) REFERENCES phones(phone_id)
 );'
 dbGetQuery(con, stmt)
 
+stmt<- 'CREATE TABLE borrower_phone(
+phone_id char(10),
+borrower_id char(10),
+phone_type varchar(10),
+PRIMARY KEY (phone_id, borrower_id),
+FOREIGN KEY (borrower_id) REFERENCES borrower(borrower_id),
+FOREIGN KEY (phone_id) REFERENCES b_phones(phone_id)
+);'
+dbGetQuery(con, stmt)
 
 
 #import investor data
