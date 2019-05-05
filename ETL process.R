@@ -381,3 +381,13 @@ df2 <- bind_cols(df1, 'phone_type' = NULL)
 dbWriteTable(con,name = 'investor_phone',value = df2, row.names = FALSE,append=TRUE)
 
 
+#import Investor_Proposal
+
+SQL_Project_Investor_proposal <- read_excel("SQL_Project_Group1.xlsx"
+,sheet='Investor_proposal'
+)
+df <- SQL_Project_Investor_proposal
+df1 <- df %>% select(loan_ticket_id, investor_id) %>% distinct()
+df2 <- bind_cols('investor_proposal_id' = sprintf('ip%09d', 1:nrow(df1)), df1)
+dbWriteTable(con, name = 'investor_proposal', value = df2, row.names = FALSE, append = TRUE)
+
