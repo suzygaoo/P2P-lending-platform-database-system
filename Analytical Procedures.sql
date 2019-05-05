@@ -345,3 +345,15 @@ JOIN payment_bank ON payment_method.payment_bank_id = payment_bank.payment_bank_
 GROUP BY payment_bank_name
 
 ORDER BY COUNT(investor.investor_id) DESC;
+                                                 
+                                                 
+###Create Views
+                                                 
+CREATE VIEW borrower_income_credit_rating_details AS
+	SELECT b.borrower_id, b.first_name, b.last_name, b.zip_code, e.occupation, e.employment_status_duration,
+			c.current_credit_lines, c.credit_score,r.credit_rating_agency
+	FROM borrower b
+	JOIN employment e ON b.borrower_id = e.borrower_id
+	JOIN income_info i ON b.borrower_id = i.borrower_id
+	JOIN credit_info c ON b.borrower_id = c.borrower_id
+	JOIN credit_rating_agency r ON c.credit_rating_agency_id = r.credit_rating_agency_id;                                                 
