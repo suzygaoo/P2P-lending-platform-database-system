@@ -23,4 +23,6 @@ https://s3.amazonaws.com/udacity-hosted-downloads/ud651/prosperLoanData.csv  (Li
 The raw data source contains a matrix of about 2.26 million observations and 145 variables, covering complete loan data (current loan status and latest payment information) for all loans which were issued from 2007 to 2015, as well as additional features such as credit score, address, number of finance inquiries, etc.
 
 
-
+## Dashboard
+Metabase Dashboard: http://s19db.apan5310.com:3201/public/dashboard/ee8a48c2-7d83-4229-ba12- 619efa7586ce
+Tableau Dashboard: https://public.tableau.com/profile/jia.yang#!/
