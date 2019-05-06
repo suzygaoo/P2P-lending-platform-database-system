@@ -19,8 +19,17 @@ df <- separate_rows(df, credit_rating_agency,establish_year,credit_score,
 df <- df%>%
   separate_rows(phone_numbers)
 
+####################################borrowers####################################
 
-#CREAT TABLES
+#CREAT TABLES 
+stmt <- 'CREATE TABLE b_phones (
+phone_id char(10),
+phone_number varchar(20),
+PRIMARY KEY(phone_id)
+);'
+dbGetQuery(con, stmt)
+
+
 stmt <- 'CREATE TABLE borrower (
 borrower_id varchar(10),
 first_name varchar(50),
@@ -54,7 +63,7 @@ dbGetQuery(con, stmt)
 
 
 stmt <- 'CREATE TABLE employment (
-employment_id integer,
+employment_id varchar(10),
 borrower_id varchar(10),
 employment_status_duration integer,
 occupation varchar(50),
@@ -159,13 +168,14 @@ FOREIGN KEY (phone_id) REFERENCES b_phones(phone_id)
 dbGetQuery(con, stmt)
 
 
+
 #####import borrower data#####
 
- 
-##borrower_phone
-df1 <- df %>% select(phone_id, borrower_id) %>% distinct()
-df2 <- bind_cols(df1, 'phone_type' = NULL)
-dbWriteTable(con,name = 'borrower_phone',value = df2, row.names = FALSE,append=TRUE)
+##b_phone table
+df1 <- df %>% select('phone_number'= phone_numbers) %>% distinct()
+df2 <- bind_cols('phone_id' = sprintf('p%09d', 1:nrow(df1)),df1)
+dbWriteTable(con,name = 'b_phones',value = df2, row.names = FALSE,append=TRUE)
+df <- df %>% inner_join(y = df2, by = c('phone_numbers'='phone_number'))
 
 
 #borrower
@@ -196,13 +206,11 @@ df <- df %>% inner_join(y = df2, by = 'credit_rating_agency')
 
 
 
-
 #credit info
 df1 <- df %>% select(borrower_id,current_credit_lines,credit_score,credit_rating_agency_id) %>% distinct()
 df2 <- bind_cols('credit_info_id' = sprintf('%09d', 1:nrow(df1)), df1)
 dbWriteTable(con,name = 'credit_info', value = df2, row.names = FALSE, append = TRUE)
 df <- df %>% inner_join(y = df2, by = 'borrower_id')
-
 
 
 
@@ -239,9 +247,19 @@ df2 <- bind_cols('income_info_id' = sprintf('%09d', 1:nrow(df1)), df1)
 dbWriteTable(con,name = 'income_info', value = df2, row.names = FALSE, append = TRUE)
 df <- df %>% inner_join(y = df2, by = 'borrower_id')
 
+ 
+##borrower_phone
+df1 <- df %>% select(phone_id, borrower_id) %>% distinct()
+df2 <- bind_cols(df1, 'phone_type' = NULL)
+dbWriteTable(con,name = 'borrower_phone',value = df2, row.names = FALSE,append=TRUE)
 
 
-#CREAT TABLE
+
+
+
+####################################investors####################################
+#CREATE TABLES
+
 stmt <- 'CREATE TABLE phones (
 phone_id char(10),
 phone_number varchar(20),
@@ -325,16 +343,6 @@ FOREIGN KEY (phone_id) REFERENCES phones(phone_id)
 );'
 dbGetQuery(con, stmt)
 
-stmt<- 'CREATE TABLE borrower_phone(
-phone_id char(10),
-borrower_id char(10),
-phone_type varchar(10),
-PRIMARY KEY (phone_id, borrower_id),
-FOREIGN KEY (borrower_id) REFERENCES borrower(borrower_id),
-FOREIGN KEY (phone_id) REFERENCES b_phones(phone_id)
-);'
-dbGetQuery(con, stmt)
-
 
 #import investor data
 library(readxl)
@@ -410,6 +418,26 @@ df <- df %>% inner_join(y = df2, by = c('investor_id.x'='investor_id'))
 df1 <- df %>% select(phone_id, 'investor_id'=investor_id.x) %>% distinct()
 df2 <- bind_cols(df1, 'phone_type' = NULL)
 dbWriteTable(con,name = 'investor_phone',value = df2, row.names = FALSE,append=TRUE)
+
+
+
+####################################Investor_proposal####################################
+
+#Create table for Investor_proposal
+
+CREATE TABLE Investor_proposal(
+investor_proposal_id varchar(10),
+Investor_id char(10),
+Loan_ticket_id varchar(10),
+proposal_amount numeric(9,2),
+proposal_date date,
+cancel_date date,
+PRIMARY KEY(investor_proposal_id),
+FOREIGN KEY(investor_id) REFERENCES investor(investor_id),
+FOREIGN KEY(loan_ticket) REFERENCES investor(loan_ticket_id)
+);
+
+
 
 
 #import Investor_Proposal
