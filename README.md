@@ -19,7 +19,7 @@ By designing a clear database for automatically storing and easily retrieving th
  
 
 ## Data source and a brief description
-https://www.kaggle.com/wendykan/lending-club-loan-data/version/1#loan.csv (Links to an external site.)
+https://s3.amazonaws.com/udacity-hosted-downloads/ud651/prosperLoanData.csv  (Links to an external site.)
 The raw data source contains a matrix of about 2.26 million observations and 145 variables, covering complete loan data (current loan status and latest payment information) for all loans which were issued from 2007 to 2015, as well as additional features such as credit score, address, number of finance inquiries, etc.
 
 
