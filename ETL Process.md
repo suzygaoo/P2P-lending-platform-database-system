@@ -1,7 +1,7 @@
-## ETL process for Prosper lending data
+# ETL process for Prosper lending data
 
 
-### Extraction
+## 1.Extraction
 
 In this stage, the data is collected, often from multiple and different types of sources. In order to obtain border aspects of information on the Peer-to-peer platform, 
 three sets of data were used in this project: Lending Club Load Data, Borrower data, and 10-Year Treasury Constant Maturity Rate. T
@@ -47,7 +47,7 @@ investor <- read_excel("~/Downloads/SQL_Project_Group1.xlsx",
                                                          "numeric"))
 ```
 
-### Transformation
+## 2.Transformation
 
 Our transformation process includes removing extraneous or erroneous data (cleaning), applying business rules, checking data integrity, and creating aggregates as necessary. 
 Below are the steps for data transformation: 
@@ -194,7 +194,7 @@ these features are meaningless for the following process of conducting analysis 
 
 
 
-### Load
+## 3.Load
 Loading data to the target multidimensional structure is the final step in ETL process. 
 In this step, extracted and transformed data is written into the dimensional structures actually accessed by the end users and application systems, 
 where they can be integrated, rearranged, and consolidated, creating a new type of unified information base for reports and reviews. 
