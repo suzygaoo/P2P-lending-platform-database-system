@@ -434,7 +434,7 @@ proposal_date date,
 cancel_date date,
 PRIMARY KEY(investor_proposal_id),
 FOREIGN KEY(investor_id) REFERENCES investor(investor_id),
-FOREIGN KEY(loan_ticket) REFERENCES investor(loan_ticket_id)
+FOREIGN KEY(loan_ticket) REFERENCES loan_ticket (loan_ticket_id)
 );
 
 
