@@ -183,7 +183,18 @@ df2 <- bind_cols('account_statement_id' = sprintf('a%09d', 1:nrow(df1)),df1)
 df <- df %>% inner_join(y = df2, by = c('investor_id.x'='investor_id'))
 ```
 
+Investor proposal
 
+```r
+#import Investor_Proposal
+
+SQL_Project_Investor_proposal <- read_excel("SQL_Project_Group1.xlsx"
+,sheet='Investor_proposal'
+)
+df <- SQL_Project_Investor_proposal
+df1 <- df %>% select(loan_ticket_id, investor_id) %>% distinct()
+df2 <- bind_cols('investor_proposal_id' = sprintf('ip%09d', 1:nrow(df1)), df1)
+```
 
 3. Missing Values: 
 For some of the columns that contain NA values, we need to find the best way to deal with those missing values. 
