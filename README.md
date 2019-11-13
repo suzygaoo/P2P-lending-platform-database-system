@@ -1,5 +1,5 @@
 # Data Modeling and Database Design for P2P Lending Platform in PostgreSQL
-![lending club](data/p2p.jpg|width=300)
+<img src="data/p2p.jpg" alt="lending" width="350"/>
 
 
 ## Scenario
