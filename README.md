@@ -30,3 +30,6 @@ The raw data source contains a matrix of about 2.26 million observations and 145
 ## Dashboard
 Metabase Dashboard: http://s19db.apan5310.com:3201/public/dashboard/ee8a48c2-7d83-4229-ba12-619efa7586ce
 Tableau Dashboard: https://public.tableau.com/profile/jia.yang#!/
+
+## Presentation
+https://github.com/suzygaoo/P2P-lending-platform-database-system/blob/master/Presentation.pdf
