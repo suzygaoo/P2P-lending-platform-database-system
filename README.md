@@ -1,5 +1,5 @@
 # Data Modeling and Database Design for P2P Lending Platform(PostgreSQL)
-!(data/lending.png)
+![lending club](data/lending.png)
 
 
 ## Scenario
