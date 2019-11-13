@@ -1,5 +1,5 @@
-## Data Modeling and Database Design for P2P Lending Platform in PostgreSQL
-![lending club](data/p2p.jpg)
+# Data Modeling and Database Design for P2P Lending Platform in PostgreSQL
+![lending club](data/p2p.jpg = 350x350)
 
 
 ## Scenario
